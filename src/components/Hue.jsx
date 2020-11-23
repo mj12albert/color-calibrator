@@ -2,6 +2,7 @@
 import { jsx, Box, Heading } from 'theme-ui'
 import getColorsFromHue from 'utils/getColorsFromHue';
 import ColorTable from 'components/ColorTable';
+import Chart from 'components/Chart';
 
 const Hue = ({
   selected
@@ -17,7 +18,35 @@ const Hue = ({
 
   const hueScale = getColorsFromHue({ hue: selected.hue });
 
-  console.log(hueScale)
+  const lightnessData = hueScale.map(color => {
+    const { hex, hsv, step } = color;
+
+    return {
+      hex,
+      step,
+      value: hsv[2],
+    };
+  })
+
+  const saturationData = hueScale.map(color => {
+    const { hex, hsv, step } = color;
+
+    return {
+      hex,
+      step,
+      value: hsv[1],
+    };
+  })
+
+  const hueData = hueScale.map(color => {
+    const { hex, hsv, step } = color;
+
+    return {
+      hex,
+      step,
+      value: hsv[0],
+    };
+  })
 
   return (
     <Box>
@@ -25,7 +54,7 @@ const Hue = ({
         {selected.hue}
       </Heading>
 
-      <ColorTable columns={columns}>
+      <ColorTable columns={columns} mb={4}>
         <Box as="tr" height="32px">
           {hueScale.map(color => {
             const { step, hex } = color;
@@ -38,6 +67,12 @@ const Hue = ({
           })}
         </Box>
       </ColorTable>
+
+      <Chart heading="Lightness (L)" data={lightnessData} />
+
+      <Chart heading="Saturation/Chroma (S)" data={saturationData} />
+
+      <Chart heading="Hue (H)" data={hueData} />
     </Box>
   )
 }

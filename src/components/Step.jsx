@@ -3,6 +3,7 @@ import { jsx, Box, Heading } from 'theme-ui'
 import { COLORS } from 'Constants';
 import getColorsFromHue from 'utils/getColorsFromHue';
 import ColorTable from 'components/ColorTable';
+import Chart from 'components/Chart';
 
 const Step = ({
   selected
@@ -19,13 +20,43 @@ const Step = ({
     return hue;
   })
 
+  const lightnessData = steps.map(color => {
+    const { hex, hsv, step } = color;
+
+    return {
+      hex,
+      step,
+      value: hsv[2],
+    };
+  })
+
+  const saturationData = steps.map(color => {
+    const { hex, hsv, step } = color;
+
+    return {
+      hex,
+      step,
+      value: hsv[1],
+    };
+  })
+
+  const hueData = steps.map(color => {
+    const { hex, hsv, step } = color;
+
+    return {
+      hex,
+      step,
+      value: hsv[0],
+    };
+  })
+
   return (
     <Box>
       <Heading as="h3" sx={{ fontWeight: 500, mb: 3 }}>
         {selected.step}00
       </Heading>
 
-      <ColorTable columns={COLORS}>
+      <ColorTable columns={COLORS} mb={4}>
         <Box as="tr" height="32px">
           {steps.map(color => {
             const { step, hex } = color;
@@ -38,6 +69,12 @@ const Step = ({
           })}
         </Box>
       </ColorTable>
+
+      <Chart heading="Lightness (L)" data={lightnessData} />
+
+      <Chart heading="Saturation/Chroma (S)" data={saturationData} />
+
+      <Chart heading="Hue (H)" data={hueData} />
     </Box>
   )
 }
