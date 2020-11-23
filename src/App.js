@@ -6,9 +6,14 @@ import Layout from 'components/Layout';
 import Palette from 'components/Palette';
 import Hue from 'components/Hue';
 import Step from 'components/Step';
+import Context from './Context';
 
-const App = ({ inverted }) => {
+const App = () => {
   const [selectedColor, setSelected] = useState(null);
+
+  const [isInverted, setInverted] = useState(false);
+
+  const handleToggle = () => setInverted(!isInverted);
 
   const handleClick = ({
     hue,
@@ -22,15 +27,17 @@ const App = ({ inverted }) => {
   return (
     <ThemeProvider theme={theme}>
       <Layout>
-        <Palette
-          inverted={inverted}
-          selected={selectedColor}
-          onClick={handleClick}
-        />
+        <Context.Provider value={{ isInverted, onToggle: handleToggle }}>
+          <Palette
+            inverted={isInverted}
+            selected={selectedColor}
+            onClick={handleClick}
+          />
 
-        <Hue selected={selectedColor} />
+          <Hue selected={selectedColor} />
 
-        <Step selected={selectedColor} />
+          <Step selected={selectedColor} />
+        </Context.Provider>
       </Layout>
     </ThemeProvider>
   );

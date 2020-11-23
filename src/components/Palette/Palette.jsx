@@ -1,9 +1,11 @@
 /** @jsx jsx */
-import { jsx, Box, Heading, Text } from 'theme-ui'
+import { jsx, Box, Flex, Heading, Text } from 'theme-ui'
+import { useContext } from 'react';
 import _ from 'lodash';
 import { COLORS } from 'Constants';
 import getColorsFromHue from 'utils/getColorsFromHue';
 import ColorTable from 'components/ColorTable';
+import Context from 'Context';
 
 const round = val => _.round(val, 2).toFixed(2);
 
@@ -11,7 +13,6 @@ const SmallText = props => <Text {...props} sx={{ fontSize: 0, mb: 1 }} />
 
 const Palette = ({
   selected,
-  inverted,
   onClick,
 }) => {
   const columns = Array(10)
@@ -19,15 +20,29 @@ const Palette = ({
     .map((_, i) => i)
     .map(i => `${i}00`);
 
+  const { isInverted, onToggle } = useContext(Context);
+
   return (
     <Box>
-      <Heading as="h3" sx={{ fontWeight: 500, mb: 3 }}>
-        Palette
-      </Heading>
+      <Flex sx={{ alignItems: 'center', mb: 3 }}>
+        <Heading as="h3" sx={{ fontWeight: 500 }}>
+          Palette
+        </Heading>
+
+        <button
+          type="button"
+          onClick={onToggle}
+          sx={{
+            ml: 'auto',
+          }}
+        >
+          <Text>{isInverted ? 'Un-invert' : 'Invert'}</Text>
+        </button>
+      </Flex>
 
       <ColorTable columns={columns} showNameColumn>
         {COLORS.map(key => {
-          const colors = getColorsFromHue({ hue: key, inverted });
+          const colors = getColorsFromHue({ hue: key, inverted: isInverted });
 
           return (
             <Box as="tr" height="32px" key={key}>
@@ -85,9 +100,9 @@ const Palette = ({
             <Text sx={{ mb: 2, fontWeight: 500 }}>{selected.hue}-{selected.step}00</Text>
             <SmallText>{selected.color?.hex}</SmallText>
             <SmallText>rgb({selected.color?.rgbString})</SmallText>
-            <SmallText>hsl({round(selected.color?.hsl?.[0])},{round(selected.color?.hsl?.[1])},{round(selected.color?.hsl?.[2])})</SmallText>
-            <SmallText>hsv({round(selected.color?.hsv?.[0])},{round(selected.color?.hsv?.[1])},{round(selected.color?.hsv?.[2])})</SmallText>
-            <SmallText>lab({round(selected.color?.lab?.[0])},{round(selected.color?.lab?.[1])},{round(selected.color?.lab?.[2])})</SmallText>
+            <SmallText>hsl({round(selected.color?.hsl?.[0])}, {round(selected.color?.hsl?.[1])}, {round(selected.color?.hsl?.[2])})</SmallText>
+            <SmallText>hsv({round(selected.color?.hsv?.[0])}, {round(selected.color?.hsv?.[1])}, {round(selected.color?.hsv?.[2])})</SmallText>
+            <SmallText>lab({round(selected.color?.lab?.[0])}, {round(selected.color?.lab?.[1])},{round(selected.color?.lab?.[2])})</SmallText>
           </Box>
         </Box>
       )}

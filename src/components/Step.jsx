@@ -1,19 +1,23 @@
 /** @jsx jsx */
 import { jsx, Box, Heading } from 'theme-ui'
+import { useContext } from 'react';
 import { COLORS } from 'Constants';
 import getColorsFromHue from 'utils/getColorsFromHue';
 import ColorTable from 'components/ColorTable';
 import Chart from 'components/Chart';
+import Context from 'Context';
 
 const Step = ({
   selected
 }) => {
+  const { isInverted } = useContext(Context);
+
   if (!selected) {
     return <span key="step-empty" />
   }
 
   const steps = COLORS.map(key => {
-    const colors = getColorsFromHue({ hue: key });
+    const colors = getColorsFromHue({ hue: key, inverted: isInverted });
 
     const hue = colors.find(c => c.step === selected.step);
 

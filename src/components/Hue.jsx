@@ -1,12 +1,16 @@
 /** @jsx jsx */
 import { jsx, Box, Heading } from 'theme-ui'
+import { useContext } from 'react';
 import getColorsFromHue from 'utils/getColorsFromHue';
 import ColorTable from 'components/ColorTable';
 import Chart from 'components/Chart';
+import Context from 'Context';
 
 const Hue = ({
   selected
 }) => {
+  const { isInverted } = useContext(Context);
+
   if (!selected?.hue) {
     return <span key="hue-empty" />
   }
@@ -16,7 +20,7 @@ const Hue = ({
     .map((_, i) => i)
     .map(i => `${i}00`);
 
-  const hueScale = getColorsFromHue({ hue: selected.hue });
+  const hueScale = getColorsFromHue({ hue: selected.hue, inverted: isInverted });
 
   const lightnessData = hueScale.map(color => {
     const { hex, hsv, step } = color;
