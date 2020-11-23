@@ -13,9 +13,10 @@ const App = ({ inverted }) => {
   const handleClick = ({
     hue,
     step,
+    color,
   }) => {
     // console.log(`selected: ${hue}-${step}00`)
-    setSelected({ hue, step });
+    setSelected({ hue, step, color });
   }
 
   return (
