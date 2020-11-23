@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "steps": 10,
+    "hue": {
+      "start": 2,
+      "end": 2,
+      "curve": "easeOutQuad"
+    },
+    "saturation": {
+      "start": 0.22,
+      "end": 0.85,
+      "rate": 1,
+      "curve": "easeOutQuad"
+    },
+    "brightness": {
+      "start": 1,
+      "end": 0.15,
+      "curve": "linear"
+    }
+  },
+  "options": {
+    "minorSteps": [],
+    "name": "red ",
+    "lockHex": "#ec4c47",
+    "provideInverted": true,
+    "rotation": "clockwise"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "steps": 10,
+    "hue": {
+      "start": 194,
+      "end": 221,
+      "curve": "linear"
+    },
+    "saturation": {
+      "start": 0.13,
+      "end": 0.53,
+      "rate": 1.3,
+      "curve": "easeOutCubic"
+    },
+    "brightness": {
+      "start": 0.97,
+      "end": 0.12,
+      "curve": "linear"
+    }
+  },
+  "options": {
+    "minorSteps": [],
+    "name": "sky ",
+    "lockHex": "#9ce4e7",
+    "provideInverted": true,
+    "rotation": "clockwise"
+  }
+}

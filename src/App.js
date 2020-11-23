@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+/** @jsx jsx */
+import { useState } from 'react';
+import { jsx, ThemeProvider } from 'theme-ui'
+import theme from 'assets/theme';
+import Layout from 'components/Layout';
+import Palette from 'components/Palette';
+import Hue from 'components/Hue';
+import Step from 'components/Step';
 
-function App() {
+const App = ({ inverted }) => {
+  const [selectedColor, setSelected] = useState(null);
+
+  const handleClick = ({
+    hue,
+    step,
+  }) => {
+    // console.log(`selected: ${hue}-${step}00`)
+    setSelected({ hue, step });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <Palette
+          inverted={inverted}
+          selected={selectedColor}
+          onClick={handleClick}
+        />
+
+        <Hue selected={selectedColor} />
+
+        <Step selected={selectedColor} />
+      </Layout>
+    </ThemeProvider>
   );
+}
+
+App.defaultProps = {
+  inverted: false,
 }
 
 export default App;
