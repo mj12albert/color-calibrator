@@ -29,6 +29,7 @@ const Hue = ({
       hex,
       step,
       value: hsv[2],
+      name: selected.hue,
     };
   })
 
@@ -39,6 +40,7 @@ const Hue = ({
       hex,
       step,
       value: hsv[1],
+      name: selected.hue,
     };
   })
 
@@ -49,6 +51,7 @@ const Hue = ({
       hex,
       step,
       value: hsv[0],
+      name: selected.hue,
     };
   })
 
@@ -72,11 +75,11 @@ const Hue = ({
         </Box>
       </ColorTable>
 
-      <Chart heading="Lightness (L)" data={lightnessData} />
+      <Chart name="hue-l" heading="Lightness (L)" data={lightnessData} />
 
-      <Chart heading="Saturation/Chroma (S)" data={saturationData} />
+      <Chart name="hue-s" heading="Saturation/Chroma (S)" data={saturationData} />
 
-      <Chart heading="Hue (H)" data={hueData} />
+      <Chart name="hue-h" heading="Hue (H)" data={hueData} />
     </Box>
   )
 }

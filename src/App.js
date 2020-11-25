@@ -20,7 +20,6 @@ const App = () => {
     step,
     color,
   }) => {
-    // console.log(`selected: ${hue}-${step}00`)
     setSelected({ hue, step, color });
   }
 
